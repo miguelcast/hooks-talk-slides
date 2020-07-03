@@ -7,9 +7,7 @@ import { github, vsDark } from "@code-surfer/themes";
 
 export const theme = vsDark;
 
-# Hello 👋
-
-You are using [MDX Deck](https://github.com/jxnblk/mdx-deck) and [Code Surfer](https://codesurfer.pomb.us)
+# ⚛ 🧷
 
 ---
 
@@ -148,5 +146,152 @@ const sed = (eiusmod, tempor, incididunt) => {
 
 ---
 
-docs:  
+docs:
 [codesurfer.pomb.us](https://codesurfer.pomb.us)
+
+---
+
+# 👆 useState
+
+---
+
+<CodeSurfer>
+
+```js title="👆 useState" subtitle="Manage state component"
+function HelloMessage ({ name }) {
+  const [lastName, setLastName] = React.useState("");
+  const [formattedName, setFormattedName] = React.useState(`_${name.toLowerCase()}_`);
+
+  function handleLasName(e) {
+    setLastName(e.target.value);
+  }
+
+  return (
+    <div>
+      <h1>Hello {formattedName} {lastName}</h1>
+      <input
+        type="text"
+        placeholder="lastname"
+        value={lastName}
+        onChange={handleLasName}
+      />
+    </div>
+  )
+}
+```
+
+``` diff 2,3 subtitle="Defining useState"
+
+```
+
+``` diff 11,15 subtitle="Showing and using states"
+
+```
+
+``` diff 6,16 subtitle="Updating state"
+
+```
+
+```js title="👆 useState tips"
+function HelloMessage ({ name }) {
+  const [lastName, setLastName] = React.useState("");
+  const [formattedName, setFormattedName] = React.useState(`_${name.toLowerCase()}_`);
+
+  function handleLasName(e) {
+    setLastName(e.target.value);
+  }
+
+  return (
+    <div>
+      <h1>Hello {formattedName} {lastName}</h1>
+      <input
+        type="text"
+        placeholder="lastname"
+        value={lastName}
+        onChange={handleLasName}
+      />
+    </div>
+  )
+}
+```
+
+```js title="👆 useState tips" subtitle="Lazy initialization"
+function HelloMessage ({ name }) {
+  const [lastName, setLastName] = React.useState("");
+  const [formattedName, setFormattedName] = React.useState(() => {
+    return `_${name.toLowerCase()}_`;
+  });
+
+  function handleLasName(e) {
+    setLastName(e.target.value);
+  }
+
+  return (
+    <div>
+      <h1>Hello {formattedName} {lastName}</h1>
+      <input
+        type="text"
+        placeholder="lastname"
+        value={lastName}
+        onChange={handleLasName}
+      />
+    </div>
+  )
+}
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js title="👆 useState tips"
+function Counter() {
+  const [count, setCount] = React.useState(0);
+
+  function increment() {
+    setCount(count + 1);
+  }
+
+  function decrement() {
+    setCount(count - 1);
+  }
+
+  return (
+    <div style={{ marginTop: 20 }}>
+      <button type="button" onClick={increment}>Increment</button>
+      {` ${count} `}
+      <button type="button" onClick={decrement}>Decrement</button>
+    </div>
+  );
+}
+```
+
+```js title="👆 useState tips" subtitle="Set with functional form"
+function Counter() {
+  const [count, setCount] = React.useState(0);
+
+  function increment() {
+    setCount(prevCount => prevCount + 1);
+  }
+
+  function decrement() {
+    setCount(prevCount => prevCount - 1);
+  }
+
+  return (
+    <div style={{ marginTop: 20 }}>
+      <button type="button" onClick={increment}>Increment</button>
+      {` ${count} `}
+      <button type="button" onClick={decrement}>Decrement</button>
+    </div>
+  );
+}
+```
+
+</CodeSurfer>
+
+---
+
+# ✌ useReducer
