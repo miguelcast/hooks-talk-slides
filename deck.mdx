@@ -295,3 +295,270 @@ function Counter() {
 ---
 
 # ✌ useReducer
+
+---
+
+<CodeSurfer>
+
+  ```js
+    const initialState = { name: '', lastname: '', phone: '' };
+
+    function Form() {
+      const clearTime = React.useRef(null);
+      const renders = React.useRef(0);
+
+      const [form, setForm] = React.useState(initialState);
+      const [typing, setTyping] = React.useState(false);
+      const [loading, setLoading] = React.useState(false);
+      const [result, setResult] = React.useState(false);
+
+      function handleInput({ target }) {
+        if (target) {
+          if (clearTime.current) clearTimeout(clearTime.current);
+          setTyping(true);
+          setForm(prevForm => ({ ...prevForm, [target.name]: target.value }));
+          clearTime.current = setTimeout(() => setTyping(false), 800);
+        }
+      }
+
+      async function onSubmit(e) {
+        e.preventDefault();
+        setLoading(true);
+        await saveDataPromise();
+        setLoading(false);
+        setResult(true);
+        setForm(initialState);
+      }
+
+      console.log(renders.current++)
+
+      return (
+        <form onSubmit={onSubmit}>
+          <fieldset>
+            <label>Name: </label>
+            <input type="text" name="name" onChange={handleInput} value={form.name} />
+          </fieldset>
+          <fieldset>
+            <label>Last Name: </label>
+            <input type="text" name="lastname" onChange={handleInput} value={form.lastname} />
+          </fieldset>
+          <fieldset>
+            <label>Phone: </label>
+            <input type="tel" name="phone" onChange={handleInput} value={form.phone} />
+          </fieldset>
+
+          <button type="submit" disabled={typing || loading}>
+            {typing ? "Typing" : loading ? "Saving" : "Submit"}
+          </button>
+
+          {result && (
+            <div>Success!!!!</div>
+          )}
+        </form>
+      )
+    }
+ ```
+
+ ``` diff 6:10 subtitle="Init states"
+
+ ```
+
+ ``` diff 15:17 subtitle="Updating states"
+
+ ```
+
+ ``` diff 23:27 subtitle="Updating state"
+
+ ```
+
+```js
+  const initialForm = { name: '', lastname: '', phone: '' };
+  const initialState = {
+    form: initialForm,
+    typing: false,
+    loading: false,
+    result: false
+  };
+
+  function reducer(state, action) {
+    switch (action.type) {
+      case "SET":
+        return {
+          ...state,
+          typing: true,
+          form: { ...state.form, [action.payload.name]: action.payload.value }
+        };
+      case "NO_TYPING":
+        return { ...state, typing: false };
+      case "LOADING":
+        return { ...state, loading: true };
+      case "SUCCESS":
+        return { ...state, loading: false, result: true, form: initialForm };
+      default:
+        return state
+    }
+  }
+
+  function Form() {
+    const clearTime = React.useRef(null);
+    const renders = React.useRef(0);
+
+    const [state, dispatch] = React.useReducer(reducer, initialState);
+    const { form, loading, result, typing } = state;
+
+    function handleInput({ target }) {
+      if (target) {
+        if (clearTime.current) clearTimeout(clearTime.current);
+        dispatch({ type: "SET", payload: { name: target.name, value: target.value } })
+        clearTime.current = setTimeout(() => dispatch({ type: "NO_TYPING" }), 800);
+      }
+    }
+
+    async function onSubmit(e) {
+      e.preventDefault();
+      dispatch({ type: "LOADING" })
+      await saveDataPromise(form);
+      dispatch({ type: "SUCCESS" })
+    }
+
+    console.log(renders.current++);
+
+    return (
+      <form onSubmit={onSubmit}>
+        <fieldset>
+          <label>Name: </label>
+          <input type="text" name="name" onChange={handleInput} value={form.name} />
+        </fieldset>
+        <fieldset>
+          <label>Last Name: </label>
+          <input type="text" name="lastname" onChange={handleInput} value={form.lastname} />
+        </fieldset>
+        <fieldset>
+          <label>Phone: </label>
+          <input type="tel" name="phone" onChange={handleInput} value={form.phone} />
+        </fieldset>
+
+        <button type="submit" disabled={typing || loading}>
+          {typing ? "Typing" : loading ? "Saving" : "Submit"}
+        </button>
+
+        {result && (
+          <div>Success!!!!</div>
+        )}
+      </form>
+    )
+  }
+ ```
+
+ ``` diff 1:26,32 subtitle="Initial state, reducer and create useReducer"
+
+ ```
+
+ ``` diff 32,38,39,45,47 subtitle="Dispatch actions"
+
+ ```
+
+</CodeSurfer>
+
+---
+
+<CodeSurferColumns themes={[vsDark, github]}>
+
+<Step>
+
+```jsx title="👆 useState"
+ * Params - useState(initialState)
+```
+
+```jsx title="✌ useReducer"
+ * Params - useReducer(reducer, initialState, init)
+```
+
+</Step>
+
+<Step>
+
+```jsx title="👆 useState"
+ * Params - useState(initialState)
+  - useState()
+  - useState("Red")
+  - useState(
+      () => someExpensiveComputation()
+    )
+```
+
+```jsx title="✌ useReducer"
+ * Params - useReducer(reducer, initialState, init)
+  * const reducerFn = (prevState, dispatchArg) => newState
+  - useReducer(reducer, { count: 0 })
+  - useReducer(
+      reducer,
+      0,
+      (initialCount) => ({ count: initialCount })
+    )
+```
+
+</Step>
+
+<Step>
+
+```jsx title="👆 useState"
+ * Params - useState(initialState)
+ * Return - [state, setState]
+```
+
+```jsx title="✌ useReducer"
+ * Params - useReducer(reducer, initialState, init)
+ * Return - [state, dispatch]
+```
+
+</Step>
+
+<Step>
+
+```jsx title="👆 useState"
+ * Params - useState(initialState)
+ * Return - [state, setState]
+  - <span>{state}</span>
+  - setState(1)
+  - setState(prevState => prevState + 1)
+```
+
+```jsx title="✌ useReducer"
+ * Params - useReducer(reducer, initialState, init)
+ * Return - [state, dispatch]
+  - <span>{state.count}</span>
+  - dispatch({ type: "TOGGLE" })
+  - dispatch({ type: "SET_VALUE", payload: 999 })
+```
+
+</Step>
+
+<Step>
+
+```jsx title="👆 useState"
+ * Params - useState(initialState)
+ * Return - [state, setState]
+ * When use it?
+    - When state is simple
+```
+
+```jsx title="✌ useReducer"
+ * Params - useReducer(reducer, initialState, init)
+ * Return - [state, dispatch]
+ * When use it?
+    - When we have complex state logic from the same domain
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+ # Rules by [Kent C. Dodds](https://kentcdodds.com/blog/should-i-usestate-or-usereducer)
+
+- When it's just an independent element of state you're managing: useState
+- When one element of your state relies on the value of another element of your state in order to update: useReducer
+
+ ##### Outside of these "rules," everything else is really subjective. Honestly, even the "rules" are subjective because as I demonstrated, you can do everything you want with either one.
