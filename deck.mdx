@@ -3,141 +3,188 @@ import {
   CodeSurferColumns,
   Step,
 } from "code-surfer";
-import { github, vsDark } from "@code-surfer/themes";
-
+import { Image, Notes, Head } from "mdx-deck";
+import { github, vsDark, nightOwl  } from "@code-surfer/themes";
 export const theme = vsDark;
+import CounterLoader from "./src/counter-loader";
+import tranquilo from "./src/images/tranquilo.jpg";
+import everywhere from "./src/images/everywhere.jpg";
+import thatsall from "./src/images/thatsall.jpg";
 
-# ⚛ 🧷
+# React Hooks ⚛ - From Zero to Hero 🚀 
+## Chapter 1: useState & useReducer
+### by Dani & Migue
+
+---
+<CodeSurferColumns sizes={[1, 2]}>
+
+<Step subtitle="Here is a simple React component">
+
+<CounterLoader/>
+
+```jsx file=./src/counter.1.1.js
+```
+
+</Step>
+
+<Step subtitle="We want to make the 'counter' editable">
+
+<CounterLoader/>
+
+```jsx 7 file=./src/counter.1.1.js
+```
+</Step>
+
+<Step subtitle="So we turn the component into a class">
+
+<CounterLoader version="class.1.2"/>
+
+```jsx file=./src/counter.class.1.2.js
+```
+</Step>
+
+<Step subtitle="Add some state">
+
+<CounterLoader version="class.1.2"/>
+
+```jsx 7:9 file=./src/counter.class.1.2.js
+```
+</Step>
+
+<Step subtitle="And add a click handler that calls setState">
+
+<CounterLoader version="class.1.2"/>
+
+```jsx 10,13:17,24 file=./src/counter.class.1.2.js
+```
+</Step>
+
+</CodeSurferColumns>
 
 ---
 
-<CodeSurfer>
+# 🖐But Wait
 
-```js title="This is a title" subtitle="and this a subtitle"
-function lorem(ipsum, dolor = 1) {
-  const sit = ipsum == null ? 0 : ipsum.sit;
-  dolor = sit - amet(dolor);
-  return sit
-    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
-    : [];
-}
-
-function incididunt(ipsum, ut = 1) {
-  ut = labore.et(amet(ut), 0);
-  const sit = ipsum == null ? 0 : ipsum.sit;
-
-  if (!sit || ut < 1) {
-    return [];
-  }
-
-  let dolore = 0;
-  let magna = 0;
-  const aliqua = new eiusmod(labore.ut(sit / ut));
-
-  while (dolore < sit) {
-    aliqua[magna++] = consectetur(
-      ipsum,
-      dolore,
-      (dolore += ut)
-    );
-  }
-
-  return aliqua;
-}
-```
-
-```js
-function lorem(ipsum, dolor = 1) {
-  const sit = ipsum == null ? 0 : ipsum.sit;
-  dolor = sit - amet(dolor);
-  return sit
-    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
-    : [];
-}
-
-function adipiscing(...elit) {
-  if (!elit.sit) {
-    return [];
-  }
-
-  const sed = elit[0];
-  return eiusmod.tempor(sed) ? sed : [sed];
-}
-
-function incididunt(ipsum, ut = 1) {
-  ut = labore.et(amet(ut), 0);
-  const sit = ipsum == null ? 0 : ipsum.sit;
-
-  if (!sit || ut < 1) {
-    return [];
-  }
-
-  let dolore = 0;
-  let magna = 0;
-  const aliqua = new eiusmod(labore.ut(sit / ut));
-
-  while (dolore < sit) {
-    aliqua[magna++] = consectetur(
-      ipsum,
-      dolore,
-      (dolore += ut)
-    );
-  }
-
-  return aliqua;
-}
-```
-
-```diff 1[10:14],2[15:19],3[22:27],10:12
-
-```
-
-</CodeSurfer>
+<Image style={{backgroundSize: "unset"}} src={tranquilo}/>
 
 ---
 
-<CodeSurferColumns themes={[vsDark, github]}>
+
+---
+### 🤔 What if we don't have to write 
+### a class to use state?
+
+---
+
+---
+
+> Sometimes, the elegant implementation is just a function. Not a method. Not a class. Not a framework. Just a function. — John Carmack. Oculus VR CTO.
+
+---
+
+---
+<CodeSurferColumns sizes={[1, 2]}>
 
 <Step>
 
-```js
-const magna = aliqua => aliqua.ut((enim, ad) => enim, 0);
+<CounterLoader />
+
+```jsx  file=./src/counter.1.1.js
+```
+</Step>
+
+
+<Step subtitle="We want to render the number of clicks">
+
+<CounterLoader />
+
+```jsx 5,9  file=./src/counter.hooks.1.1.js
+```
+</Step>
+
+
+<Step subtitle="We need a variable to save the number of clicks">
+
+<CounterLoader />
+
+```jsx 5  file=./src/counter.hooks.1.1.js
+```
+</Step>
+
+<Step subtitle="We also need a way to update the counter when the button is pressed">
+
+<CounterLoader />
+
+```jsx 8:10,15[15:35]  file=./src/counter.hooks.1.2.js
+```
+</Step>
+
+<Step subtitle="count and setCount are related, so, let's put them together">
+
+<CounterLoader />
+
+```jsx 5,6  file=./src/counter.hooks.1.2.js
+```
+</Step>
+
+<Step subtitle="Where do we get count and setName from?">
+
+<CounterLoader />
+
+```jsx 5  file=./src/counter.hooks.1.3.js
+```
+</Step>
+
+<Step subtitle="What if we could just **use**state from React?">
+
+<CounterLoader version="hooks.1.4" />
+
+```jsx 1[15:26],5  file=./src/counter.hooks.1.4.js
+```
+</Step>
+
+<Step subtitle="🥁 Voilà!!!">
+
+<CounterLoader version="hooks.1.4" />
+
+```jsx file=./src/counter.hooks.1.4.js
+```
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+---
+
+<CodeSurferColumns themes={[nightOwl, vsDark]}>
+
+<Step>
+
+```jsx file=./src/counter.class.1.2.js title="Before Hooks 😈 " subtitle="A class component with state"
 ```
 
-```js
-const minim = (ad, enim) => dolore.magna(ad / enim);
+```jsx file=./src/counter.hooks.1.4.js title="After Hooks 👼 " subtitle="A function component with state"
 ```
 
 </Step>
 
 <Step>
 
-```js
-const lorem = (ipsum, dolor, sit) => {
-  const amet = dolor - ipsum;
-  return consectetur.adipiscing(
-    {
-      elit: sed.eiusmod(sit - dolor) / amet + 2,
-    },
-    (tempor, incididunt) => ipsum + amet * incididunt
-  );
-};
-
-const magna = aliqua => aliqua.ut((enim, ad) => enim, 0);
+```jsx 7:9 file=./src/counter.class.1.2.js title="Before Hooks 😈 " subtitle="State has to be an object"
 ```
 
-```js
-const minim = (ad, enim) => dolore.magna(ad / enim);
+```jsx 5 file=./src/counter.hooks.1.4.js title="After Hooks 👼 " subtitle="State could be anything"
+```
 
-const sed = (eiusmod, tempor, incididunt) => {
-  const ut = tempor - eiusmod;
-  return labore.et(
-    {
-      amet: dolore.magna(incididunt - tempor) / ut + 2,
-    },
-    (aliqua, elit) => eiusmod + ut * elit
-  );
-};
+</Step>
+
+<Step>
+
+```jsx 7:10,14:16,20 file=./src/counter.class.1.2.js title="Before Hooks 😈 " subtitle="We read and update the state using this.state and this.setState"
+```
+
+```jsx 5,8,13 file=./src/counter.hooks.1.4.js title="After Hooks 👼 " subtitle="The state and the setter are just variables in the function"
 ```
 
 </Step>
@@ -146,8 +193,8 @@ const sed = (eiusmod, tempor, incididunt) => {
 
 ---
 
-docs:
-[codesurfer.pomb.us](https://codesurfer.pomb.us)
+
+
 
 ---
 
@@ -291,6 +338,12 @@ function Counter() {
 ```
 
 </CodeSurfer>
+
+---
+
+<Image style={{backgroundSize: "unset"}} src={everywhere}/>
+
+---
 
 ---
 
@@ -556,9 +609,25 @@ function Counter() {
 
 ---
 
+---
+
  # Rules by [Kent C. Dodds](https://kentcdodds.com/blog/should-i-usestate-or-usereducer)
 
 - When it's just an independent element of state you're managing: useState
 - When one element of your state relies on the value of another element of your state in order to update: useReducer
 
  ##### Outside of these "rules," everything else is really subjective. Honestly, even the "rules" are subjective because as I demonstrated, you can do everything you want with either one.
+
+---
+
+---
+
+<Image style={{backgroundSize: "unset"}} src={thatsall}/>
+
+---
+
+---
+
+## Cooming soon: CH 2 - useEffect
+
+---
