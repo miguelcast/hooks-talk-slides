@@ -76,11 +76,6 @@ import thatsall from "./src/images/thatsall.jpg";
 
 ---
 
----
-
-> Sometimes, the elegant implementation is just a function. Not a method. Not a class. Not a framework. Just a function. — John Carmack. Oculus VR CTO.
-
----
 
 ---
 <CodeSurferColumns sizes={[1, 2]}>
@@ -127,7 +122,7 @@ import thatsall from "./src/images/thatsall.jpg";
 ```
 </Step>
 
-<Step subtitle="Where do we get count and setName from?">
+<Step subtitle="Where do we get count and setCount from?">
 
 <CounterLoader />
 
@@ -269,7 +264,7 @@ function HelloMessage ({ name }) {
     return `_${name.toLowerCase()}_`;
   });
 
-  function handleLasName(e) {
+  function handleLastName(e) {
     setLastName(e.target.value);
   }
 
@@ -280,7 +275,7 @@ function HelloMessage ({ name }) {
         type="text"
         placeholder="lastname"
         value={lastName}
-        onChange={handleLasName}
+        onChange={handleLastName}
       />
     </div>
   )
@@ -297,19 +292,19 @@ function HelloMessage ({ name }) {
 function Counter() {
   const [count, setCount] = React.useState(0);
 
-  function increment() {
+  function increase() {
     setCount(count + 1);
   }
 
-  function decrement() {
+  function decrease() {
     setCount(count - 1);
   }
 
   return (
     <div style={{ marginTop: 20 }}>
-      <button type="button" onClick={increment}>Increment</button>
+      <button type="button" onClick={increase}>Increase</button>
       {` ${count} `}
-      <button type="button" onClick={decrement}>Decrement</button>
+      <button type="button" onClick={decrease}>Decrease</button>
     </div>
   );
 }
@@ -319,19 +314,19 @@ function Counter() {
 function Counter() {
   const [count, setCount] = React.useState(0);
 
-  function increment() {
+  function increase() {
     setCount(prevCount => prevCount + 1);
   }
 
-  function decrement() {
+  function decrease() {
     setCount(prevCount => prevCount - 1);
   }
 
   return (
     <div style={{ marginTop: 20 }}>
-      <button type="button" onClick={increment}>Increment</button>
+      <button type="button" onClick={increase}>Increase</button>
       {` ${count} `}
-      <button type="button" onClick={decrement}>Decrement</button>
+      <button type="button" onClick={decrease}>Decrease</button>
     </div>
   );
 }
